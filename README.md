@@ -29,3 +29,18 @@ Diese sind wie folgt:
 | Essensrichtung wählen (Erinnerung)                                         | COULD  | 3            |
 | Gastgeber über gewünschte Essensrichtung informieren                       | COULD  | 2            |
 | Menü des Lieferdienstes einsehen                                           | COULD  | 5            |
+
+## Backlog
+Identifizierte Backlog elemente (werden in ISSUES gepflegt und zugewiesen)
+| Titel                                      | User Story                                                                                   | Akzeptanzkriterien                                                                                                | MoSCoW | Story Points |
+|--------------------------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|--------|--------------|
+| Nächster Spieltermin                       | Als Spieler:in möchte ich immer wissen, wann und wo der nächste Spieltermin stattfindet.     | Termin wird angezeigt; enthält Datum, Uhrzeit, Ort; Änderungen aktualisieren die Anzeige automatisch.             | MUST   | 3            |
+| Schnellnachricht an Gruppe                 | Als Spieler:in möchte ich allen anderen Spieler:innen schnell eine Nachricht senden können.  | Nachricht kann eingegeben und an alle gesendet werden; funktioniert mobil und am Desktop.                         | MUST   | 3            |
+| Spiele vorschlagen                         | Als Spieler:in möchte ich ein oder mehrere Spiele vorschlagen können.                        | Spieleingabe möglich; Vorschläge werden gespeichert; mehrere Vorschläge pro Person möglich.                       | MUST   | 5            |
+| Spiele abstimmen                           | Als Spieler:in möchte ich über vorgeschlagene Spiele abstimmen können.                       | Liste aller Vorschläge sichtbar; jede Person kann abstimmen; Ergebnis wird automatisch berechnet.                 | MUST   | 5            |
+| Gastgeberrotation                          | Als Spieler:in möchte ich, dass sich die Gruppe turnusmäßig bei jemand anderem trifft.       | System berechnet nächste:n Gastgeber:in; Reihenfolge nachvollziehbar; Ausnahmen können berücksichtigt werden.     | SHOULD | 5            |
+| Abendbewertung                             | Als Spieler:in möchte ich Gastgeber:in, Essen und Abend bewerten können.                     | Bewertungsskala verfügbar; optionaler Kommentar; Bewertungen werden gespeichert und einsehbar.                    | SHOULD | 8            |
+| Essensrichtung wählen                      | Als Spieler:in möchte ich rechtzeitig daran erinnert werden, meine Essensrichtung zu wählen. | Erinnerung erfolgt rechtzeitig; Auswahl zwischen mehreren Richtungen; Auswahl wird gespeichert.                   | COULD  | 3            |
+| Essensrichtung-Info für Gastgeber          | Als Gastgeber:in möchte ich über die gewünschte Essensrichtung informiert werden.            | System zeigt meistgewählte Essensrichtung; Anzeige erfolgt rechtzeitig; Änderungen werden berücksichtigt.         | COULD  | 2            |
+| Lieferdienstmenü anzeigen                  | Als Spieler:in möchte ich das Menü des Lieferdienstes sehen können.                          | Menü wird angezeigt; Kategorien und Preise sichtbar; Bestellung kann an Gastgeber:in übermittelt werden.          | COULD  | 5            |
+
