@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Layout der NewGameActivity.
+    Zeigt die Liste der registrierten Spiele- Spiele Pool- und ermöglicht das Hinzufügen neuer Spiele.
+
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+        Hintergrundbild der Activity.
+    -->
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_main" />
+
+    <!--
+        Heller, transparenter Overlay über dem Hintergrundbild.
+    -->
+    <View
+        android:id="@+id/vOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88FFFFFF"/>
+
+    <!--
+        Zurück-Button oben links.
+        Dient zur Navigation zurück zur vorherigen Ansicht.
+    -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_button_description"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!--
+        Weiße Inhaltskarte in der Mitte.
+        Enthält Titel, Button und die Liste der Spiele.
+
+    -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardGamesContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!--
+            Inneres Layout der weißen Karte.
+
+        -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <!--
+                Titel des Bereichs.
+                Zeigt dem Nutzer, dass hier die registrierten Spiele verwaltet werden.
+            -->
+            <TextView
+                android:id="@+id/tvGamesTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/games_title"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!--
+                Button zum Hinzufügen eines neuen Spiels.
+            -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddGame"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/add_game_button"
+                android:textColor="@android:color/white"
+                android:textAllCaps="true"
+                android:elevation="4dp"
+                app:backgroundTint="#C62828"
+                app:cornerRadius="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tvGamesTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!--
+                Liste der registrierten Spiele.
+                Diese wird später dynamisch über einen Adapter befüllt.
+            -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGames"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:paddingBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@id/btnAddGame"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

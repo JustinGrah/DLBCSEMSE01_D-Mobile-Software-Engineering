@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="24dp">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardBewertung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <!--
+                Titel des Bewertungsdialogs.
+                Zeigt dem Nutzer an, dass eine Bewertung abgegeben werden kann.
+            -->
+            <TextView
+                android:id="@+id/tvBewertungTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bewertung_title"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!--
+                Untertitel mit kurzer Erklärung für den Nutzer.
+                Beschreibt, dass der vergangene Abend bewertet werden soll.
+            -->
+            <TextView
+                android:id="@+id/tvBewertungSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/bewertung_subtitle"
+                android:textColor="#666666"
+                android:textSize="15sp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tvBewertungTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!--
+                RatingBar zur Bewertung des Abends.
+                Der Nutzer kann hier 1 bis 5 Sterne auswählen.
+            -->
+            <RatingBar
+                android:id="@+id/ratingBarAbend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:numStars="5"
+                android:stepSize="1.0"
+                android:rating="0"
+                app:layout_constraintTop_toBottomOf="@id/tvBewertungSubtitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!--
+                Button zum Absenden der Bewertung.
+                Nach dem Klick wird die gewählte Sternebewertung gespeichert
+                bzw. an die entsprechende Logik der App übergeben.
+            -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBewerten"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/bewerten_button"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:elevation="4dp"
+                app:backgroundTint="#C62828"
+                app:cornerRadius="16dp"
+                app:layout_constraintTop_toBottomOf="@id/ratingBarAbend"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

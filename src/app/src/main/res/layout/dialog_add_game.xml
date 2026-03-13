@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Layout für den Dialog zum Hinzufügen eines neuen Spiels.
+
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--
+        Eingabefeld für den Namen des neuen Spiels.
+        Nutzer können hier den Spieltitel eingeben.
+    -->
+    <EditText
+        android:id="@+id/etNewGameName"
+        android:hint="@string/hint_game_name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--
+        Eingabefeld für die minimale Spieleranzahl.
+        Es akzeptiert nur numerische Werte.
+    -->
+    <EditText
+        android:id="@+id/etMinPlayers"
+        android:hint="@string/hint_min_players"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--
+        Eingabefeld für die maximale Spieleranzahl.
+        Auch hier sind nur Zahlen erlaubt.
+    -->
+    <EditText
+        android:id="@+id/etMaxPlayers"
+        android:hint="@string/hint_max_players"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--
+        Eingabefeld für die ungefähre Spieldauer in Minuten.
+        Dieses Feld hilft dabei, die Dauer eines Spiels festzulegen.
+    -->
+    <EditText
+        android:id="@+id/etDurationMin"
+        android:hint="@string/hint_duration"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
