@@ -1,4 +1,4 @@
-package com.example.boardgameapp;
+package com.example.myapplication;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 /*
     Activity für den Chat-Bildschirm der App.

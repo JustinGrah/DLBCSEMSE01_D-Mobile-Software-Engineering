@@ -1,4 +1,4 @@
-package com.example.boardgameapp;
+package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;

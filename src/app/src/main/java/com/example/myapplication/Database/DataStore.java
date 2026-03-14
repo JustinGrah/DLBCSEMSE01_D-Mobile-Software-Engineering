@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
         Group.class,
         Game.class
 
-}, version = 1, exportSchema = false)
+}, version = 2, exportSchema = false)
 public abstract class DataStore extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract SessionDao sessionDao();

@@ -1,4 +1,4 @@
-package com.example.boardgameapp;
+package com.example.myapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

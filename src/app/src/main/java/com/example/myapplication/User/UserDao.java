@@ -12,6 +12,9 @@ public interface UserDao {
     @Query("SELECT * FROM User")
     List<User> getAll();
 
+    @Query("SELECT * FROM User WHERE name = :username")
+    List<User> getAllUserByName(String username);
+
     @Query("SELECT * FROM User WHERE id = :id")
     User getUserById(int id);
 
