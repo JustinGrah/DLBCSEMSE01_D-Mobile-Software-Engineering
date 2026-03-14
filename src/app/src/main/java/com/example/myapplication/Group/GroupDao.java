@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public interface GroupDao {
     @Delete
     void deleteGroup(Group group);
 
+    @Transaction
     @Query("SELECT * FROM `Group` WHERE id = :id")
     public List<GroupWithSessions> getAllGroupSessions(int id);
 }
