@@ -1,3 +1,153 @@
 <resources>
-    <string name="app_name">My Application</string>
+
+    <!-- App -->
+    <string name="app_name">BoardGameApp</string>
+
+    <!-- Login -->
+    <string name="login_header">Login / Registrierung</string>
+    <string name="login_subtitle">Bitte tragen Sie Ihre Login-Daten ein:</string>
+    <string name="username">Benutzername:</string>
+    <string name="password">Passwort:</string>
+    <string name="forgot_password">Passwort vergessen?</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Registrieren</string>
+
+
+    <!-- Register -->
+    <string name="register_title">Registrierung</string>
+    <string name="hint_register_username">Tragen Sie den Benutzernamen ein</string>
+    <string name="hint_register_password">Tragen Sie das Passwort ein</string>
+
+
+    <!-- Main Screen -->
+
+    <string name="main_title">BoardGame</string>
+    <string name="next_host_subtitle">Nächster Gastgeber: John</string>
+    <string name="planned_dates_title">Geplante Termine</string>
+
+    <string name="new_game_button"> + Spiel</string>
+    <string name="chat_button">Chat</string>
+    <string name="settings_button">Einstellungen</string>
+
+    <string name="add_symbol">+</string>
+
+
+    <string name="host_john">John</string>
+    <string name="host_anna">Anna</string>
+    <string name="host_lisa">Lisa</string>
+
+    <string name="date_active">Datum: 15.04.2026</string>
+    <string name="location_active">Ort: Graz</string>
+    <string name="time_active">Uhrzeit: 18:30</string>
+    <string name="games_active">Ausgewählte Spiele: Codenames, Azul</string>
+    <string name="status_active">Status: aktiv</string>
+
+    <string name="date_past_one">Datum: 01.04.2026</string>
+    <string name="location_past_one">Ort: Wien</string>
+    <string name="time_past_one">Uhrzeit: 19:00</string>
+    <string name="games_past_one">Ausgewählte Spiele: Uno, Activity</string>
+
+    <string name="date_past_two">Datum: 20.03.2026</string>
+    <string name="location_past_two">Ort: Linz</string>
+    <string name="time_past_two">Uhrzeit: 18:00</string>
+    <string name="games_past_two">Ausgewählte Spiele: Dixit, Carcassonne</string>
+
+    <string name="status_finished">Status: abgeschlossen</string>
+    <string name="rate_evening_button">Abend bewerten</string>
+
+
+    <string name="no_dates_title">Noch keine Termine vorhanden</string>
+
+    <!-- Chat -->
+    <string name="chat_screen_title">Chat</string>
+    <string name="chat_placeholder">Hier werden später die Nachrichten der Gruppe angezeigt.</string>
+    <string name="chat_input_hint">Nachricht eingeben</string>
+    <string name="send_message_button">Nachricht senden</string>
+    <string name="back_button_description">Zurück</string>
+    <string name="back_text">Zurück</string>
+
+    <!-- Bewertung -->
+    <string name="bewertung_title">Bewertung des Abends</string>
+    <string name="bewertung_subtitle">Wie hat dir der Abend insgesamt gefallen?</string>
+    <string name="bewerten_button">Bewerten</string>
+
+    <!-- Settings -->
+
+    <string name="remove_symbol">-</string>
+
+    <string name="settings_title">Einstellungen</string>
+    <string name="group_code_label">Code</string>
+    <string name="group_code_hint">Gruppencode</string>
+    <string name="members_title">Mitglieder</string>
+    <string name="leave_group_button">Gruppe verlassen</string>
+    <string name="group_code_button">Code generieren</string>
+
+    <!-- New Game -->
+    <string name="games_title">Spiele</string>
+    <string name="add_game_button">Neues Spiel hinzufügen</string>
+
+    <string name="hint_game_name">Spielname (z. B. Catan)</string>
+    <string name="hint_min_players">Min. Spieler</string>
+    <string name="hint_max_players">Max. Spieler</string>
+    <string name="hint_duration">Dauer in Minuten</string>
+
+    <string name="add_button">Hinzufügen</string>
+    <string name="cancel_button">Abbrechen</string>
+
+    <!-- Voting -->
+
+
+    <string name="back">Zurück</string>
+    <string name="voting_title">Abstimmung</string>
+
+    <string name="voting_games_title">Welche Spiele spielen wir?</string>
+    <string name="voting_games_hint">(Wähle bis zu 4 Spiele aus.)</string>
+
+    <string name="voting_food_title">Welche Essensrichtung?</string>
+    <string name="voting_food_hint">(Wähle 2 aus.)</string>
+
+    <string name="demo_game_1">Codenames</string>
+    <string name="demo_game_2">Uno</string>
+    <string name="demo_game_3">Monopoly</string>
+    <string name="demo_game_4">Wizard</string>
+
+    <string name="food_pizza">Pizza</string>
+    <string name="food_burger">Burger</string>
+    <string name="food_asian">Asiatisch</string>
+    <string name="food_italian">Italienisch</string>
+
+    <string name="demo_progress_25">25 %</string>
+    <string name="demo_progress_30">30 %</string>
+    <string name="demo_progress_40">40 %</string>
+    <string name="demo_progress_45">45 %</string>
+    <string name="demo_progress_55">55 %</string>
+    <string name="demo_progress_65">65 %</string>
+    <string name="demo_progress_70">70 %</string>
+    <string name="demo_progress_80">80 %</string>
+
+
+    <!-- Neuer Termin -->
+
+    <string name="new_termin_title">Neuen Termin erstellen</string>
+
+    <string name="host_label">Gastgeber</string>
+
+    <string name="datetime_label">Datum &amp; Uhrzeit</string>
+    <string name="datetime_hint">Tippen zum Auswählen</string>
+
+    <string name="location_label">Ort (keine Adresse)</string>
+    <string name="location_hint">z. B. bei Alex</string>
+
+    <string name="save_button">Speichern</string>
+
+    <!-- Neuer Termin Mock Array -->
+    <string-array name="hosts">
+        <item>Anna</item>
+        <item>John</item>
+        <item>Lisa</item>
+        <item>Alex</item>
+    </string-array>
+
+
+
 </resources>
