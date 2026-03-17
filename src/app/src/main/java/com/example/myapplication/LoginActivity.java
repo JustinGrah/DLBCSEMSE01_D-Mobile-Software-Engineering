@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -78,8 +79,14 @@ public class LoginActivity extends AppCompatActivity {
         DataStore.databaseWriteExecutor.execute(() -> {
             User user = userDao.getUserByName(username);
 
+            Log.d("Login", user.name);
+            Log.d("Login", user.password.trim());
+            Log.d("Login", password.trim());
+
+
             if(user != null) {
-                if(user.password == password) {
+                if(user.password.equals(password)) {
+                    Log.d("Login", "password correct");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {

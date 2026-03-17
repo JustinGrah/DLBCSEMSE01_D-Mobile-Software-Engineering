@@ -11,8 +11,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Database.DataStore;
+import com.example.myapplication.Game.Game;
+import com.example.myapplication.Game.GameAdapter;
+import com.example.myapplication.Game.GameDao;
 import com.google.android.material.button.MaterialButton;
+
+import java.util.List;
 
 /*
  * NewGameActivity
@@ -30,16 +38,25 @@ import com.google.android.material.button.MaterialButton;
  * - Toast-Meldung anzeigen
  */
 public class NewGameActivity extends AppCompatActivity {
-
+    private RecyclerView rvGames;
+    private GameAdapter gameAdapter;
     private ImageButton btnBack;
     private MaterialButton btnAddGame;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
 
         // Layout der Spieleübersicht laden
         setContentView(R.layout.activity_new_game);
+        rvGames = findViewById(R.id.rvGames);
+        gameAdapter = new GameAdapter();
+
+        rvGames.setAdapter(gameAdapter);
+        rvGames.setLayoutManager(new LinearLayoutManager(this));
+        loadGames();
 
         // Buttons aus dem Layout holen
         btnBack = findViewById(R.id.btnBack);
@@ -174,17 +191,39 @@ public class NewGameActivity extends AppCompatActivity {
                 return;
             }
 
-            // =========================
-            // Erfolgsrückmeldung
-            // =========================
-            Toast.makeText(
-                    this,
-                    "Spiel hinzugefügt: " + gameName,
-                    Toast.LENGTH_SHORT
-            ).show();
+            DataStore db = DataStore.getDatabase(this);
+            DataStore.databaseWriteExecutor.execute(() -> {
+                GameDao gameDao = db.gameDao();
+                Game game = new Game();
+                game.description = String.valueOf(duration);
+                game.min_players = minPlayers;
+                game.max_players = maxPlayers;
+                game.name = gameName;
+
+                gameDao.addGame(game);
+
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Spiel wurde hinzugefügt", Toast.LENGTH_SHORT).show();
+                    loadGames();
+                });
+            });
+
 
             // Dialog schließen
             dialog.dismiss();
+        });
+    }
+
+    private void loadGames() {
+        DataStore db = DataStore.getDatabase(this);
+        GameDao gameDao = db.gameDao();
+
+        DataStore.databaseWriteExecutor.execute(() -> {
+            List<Game> games = gameDao.listAllGames();
+
+            runOnUiThread(() -> {
+                gameAdapter.setGames(games);
+            });
         });
     }
 }

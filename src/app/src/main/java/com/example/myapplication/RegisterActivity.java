@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Debug;
@@ -64,9 +65,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             if(userList.isEmpty()) {
                 userDao.createUser(user);
-                runOnUiThread(() ->
-                        Toast.makeText(this, "Registrierung erfolgreich!", Toast.LENGTH_SHORT).show()
-                );
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Registrierung erfolgreich!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                });
             } else {
                 runOnUiThread(() ->
                         Toast.makeText(this, "Benutzername bereits vergeben!", Toast.LENGTH_SHORT).show()
