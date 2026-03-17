@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +25,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     @Override
     public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(android.R.layout.simple_list_item_1, parent, false);
+                .inflate(R.layout.item_game, parent, false);
         return new GameViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
-        holder.textView.setText(games.get(position).name);
+        Game game = games.get(position);
+
+        holder.tvName.setText(game.name);
+        holder.tvPlayers.setText(game.min_players + " - " + game.max_players + " Spieler");
+        holder.tvDuration.setText(game.description + " Min");
     }
 
     @Override
@@ -38,11 +44,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     }
 
     static class GameViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView tvName, tvPlayers, tvDuration;
 
         public GameViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
+            tvName = itemView.findViewById(R.id.tvGameName);
+            tvPlayers = itemView.findViewById(R.id.tvGamePlayers);
+            tvDuration = itemView.findViewById(R.id.tvGameDuration);
         }
     }
 }
