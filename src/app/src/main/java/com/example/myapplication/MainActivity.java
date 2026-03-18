@@ -10,15 +10,27 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.myapplication.Database.DataStore;
+import com.example.myapplication.Session.Session;
+import com.example.myapplication.Session.SessionAdapter;
+import com.example.myapplication.Session.SessionDao;
+import com.example.myapplication.User.User;
+import com.example.myapplication.User.UserDao;
+import com.example.myapplication.User.UserSession;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /*
  * MainActivity
@@ -46,12 +58,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvTimeActive;
     private TextView tvLocationActive;
     private TextView tvGamesActive;
+    private SessionAdapter sessionAdapter;
+    private Map<Integer, String> userNameMap = new HashMap<>();
 
     // Merkt sich, ob ein echter aktiver Termin erstellt wurde
     private boolean hasActiveTerm = false;
 
     // Speichert das aktuelle Termin-Datum als String
     private String currentDateTime = "";
+    private User user;
 
     /*
      * Launcher für NewDateActivity
@@ -69,7 +84,29 @@ public class MainActivity extends AppCompatActivity {
                             String location = result.getData().getStringExtra("location");
 
                             if (host != null && dateTime != null && location != null) {
-                                showActiveDate(host, dateTime, location);
+
+                                DataStore.databaseWriteExecutor.execute(() -> {
+                                    DataStore db = DataStore.getDatabase(this);
+                                    UserDao userDao = db.userDao();
+                                    SessionDao sessionDao = db.sessionDao();
+                                    User hostUser = userDao.getUserByName(host);
+
+                                    // 2. Neue Session erstellen
+                                    Session session = new Session();
+                                    session.group_id = user.groupId;
+                                    session.host_user_id = hostUser.id; // falls host eine ID ist
+                                    session.datetime_start = dateTime;
+                                    session.location = location;
+                                    session.status = "planned";
+
+                                    sessionDao.addSession(session);
+
+                                    runOnUiThread(() -> {
+                                        loadSessions(); // deine bestehende Methode
+                                    });
+                                });
+
+                                //showActiveDate(host, dateTime, location);
                             }
                         }
                     }
@@ -91,27 +128,46 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        this.user = UserSession.getUser();
         super.onCreate(savedInstanceState);
 
         // Verbindet diese Activity mit dem Layout der Hauptseite
         setContentView(R.layout.activity_main);
 
+        //laden des recycler views
+        RecyclerView rvSessions = findViewById(R.id.rvSessions);
+
+        // Adapter erstellen
+        loadUsersForGroup();
+        sessionAdapter = new SessionAdapter(userNameMap);
+        rvSessions.setAdapter(sessionAdapter);
+
+        // LayoutManager setzen
+        rvSessions.setLayoutManager(new LinearLayoutManager(this));
+
+        // Sessions laden
+        DataStore.databaseWriteExecutor.execute(() -> {
+
+            DataStore db = DataStore.getDatabase(this);
+            SessionDao sessionDao = db.sessionDao();
+
+            // Sessions der Gruppe laden
+            List<Session> sessions = sessionDao.getSessionsForGroup(user.groupId);
+
+            runOnUiThread(() -> {
+                sessionAdapter.setSessions(sessions);
+            });
+        });
+
+
         // =========================
         // Buttons und Views verbinden
         // =========================
         btnChat = findViewById(R.id.btnChat);
-        btnRateEvening = findViewById(R.id.btnRateEvening);
         btnSettings = findViewById(R.id.btnSettings);
         btnNewGame = findViewById(R.id.btnNewGame);
         btnAddDate = findViewById(R.id.btnAddDate);
-
-        cardActiveGame = findViewById(R.id.cardActiveGame);
-
-        tvHostActive = findViewById(R.id.tvHostActive);
-        tvDateActive = findViewById(R.id.tvDateActive);
-        tvTimeActive = findViewById(R.id.tvTimeActive);
-        tvLocationActive = findViewById(R.id.tvLocationActive);
-        tvGamesActive = findViewById(R.id.tvGamesActive);
 
         // =========================
         // Chat öffnen
@@ -124,10 +180,10 @@ public class MainActivity extends AppCompatActivity {
         // =========================
         // Bewertungsdialog öffnen
         // =========================
-        btnRateEvening.setOnClickListener(v -> {
-            BewertungDialogFragment dialog = new BewertungDialogFragment();
-            dialog.show(getSupportFragmentManager(), "BewertungDialog");
-        });
+//        btnRateEvening.setOnClickListener(v -> {
+//            BewertungDialogFragment dialog = new BewertungDialogFragment();
+//            dialog.show(getSupportFragmentManager(), "BewertungDialog");
+//        });
 
         // =========================
         // Settings öffnen
@@ -158,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
         // Nur wenn ein echter aktiver Termin existiert
         // und das Voting noch erlaubt ist
         // =========================
-        cardActiveGame.setOnClickListener(v -> openVotingIfAllowed());
+//        cardActiveGame.setOnClickListener(v -> openVotingIfAllowed());
     }
 
     /*
@@ -244,5 +300,36 @@ public class MainActivity extends AppCompatActivity {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    private void loadSessions() {
+        DataStore.databaseWriteExecutor.execute(() -> {
+
+            DataStore db = DataStore.getDatabase(this);
+            SessionDao sessionDao = db.sessionDao();
+
+            // Sessions der Gruppe laden
+            List<Session> sessions = sessionDao.getSessionsForGroup(user.groupId);
+
+            runOnUiThread(() -> {
+                sessionAdapter.setSessions(sessions);
+            });
+        });
+    }
+
+    private void loadUsersForGroup() {
+
+        DataStore.databaseWriteExecutor.execute(() -> {
+
+            DataStore db = DataStore.getDatabase(this);
+            UserDao userDao = db.userDao();
+
+            List<User> users = userDao.getUsersByGroup(user.groupId);
+
+            // Map: userId → username
+            for (User u : users) {
+                userNameMap.put(u.id, u.name);
+            }
+        });
     }
 }

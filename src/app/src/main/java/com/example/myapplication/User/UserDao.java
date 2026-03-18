@@ -25,6 +25,9 @@ public interface UserDao {
     @Query("SELECT * FROM User WHERE id IN (:userIds)")
     List<User> loadAllByIds(int[] userIds);
 
+    @Query("SELECT * FROM user WHERE group_id = :groupId")
+    List<User> getUsersByGroup(int groupId);
+
     @Insert
     void createUser(User user);
 

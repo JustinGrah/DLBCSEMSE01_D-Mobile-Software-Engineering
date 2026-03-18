@@ -14,7 +14,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Database.DataStore;
+import com.example.myapplication.Group.GroupDao;
+import com.example.myapplication.Group.GroupWithUsers;
+import com.example.myapplication.User.User;
+import com.example.myapplication.User.UserSession;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NewDateActivity extends AppCompatActivity {
 
@@ -23,12 +31,15 @@ public class NewDateActivity extends AppCompatActivity {
     private Spinner spHost;
     private EditText etDateTime;
     private EditText etLocationLabel;
+    private User user;
 
     // Kalender für Datum und Zeit
     private final Calendar selectedCal = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.user = UserSession.getUser();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_date);
 
@@ -69,14 +80,31 @@ public class NewDateActivity extends AppCompatActivity {
      * Füllt den Gastgeber-Spinner mit Mock-Daten aus strings.xml.
      */
     private void setupHostSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.hosts,
-                android.R.layout.simple_spinner_item
-        );
+        DataStore.databaseWriteExecutor.execute(() -> {
+            DataStore db = DataStore.getDatabase(this);
+            GroupDao groupDao = db.groupDao();
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spHost.setAdapter(adapter);
+            // Alle Nutzer der Gruppe laden
+            List<GroupWithUsers> result = groupDao.getAllGroupUsers(user.groupId);
+            List<User> members = result.get(0).user;
+
+            List<String> usernames = new ArrayList<>();
+            for (User u : members) {
+                usernames.add(u.name);
+            }
+
+            runOnUiThread(() -> {
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        usernames
+                );
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spHost.setAdapter(adapter);
+            });
+        });
     }
 
     /*
@@ -152,6 +180,8 @@ public class NewDateActivity extends AppCompatActivity {
         resultIntent.putExtra("host", selectedHost);
         resultIntent.putExtra("dateTime", dateTime);
         resultIntent.putExtra("location", location);
+
+
 
         setResult(RESULT_OK, resultIntent);
 

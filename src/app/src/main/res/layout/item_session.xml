@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardActiveGame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Hostname mit Statuskreis -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+                android:id="@+id/viewStatus"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_status_green_circle" />
+
+            <TextView
+                android:id="@+id/tvHostActive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Host: John"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDateActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Datum: 12.03.2026"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tvLocationActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ort: Wuppertal" />
+
+        <TextView
+            android:id="@+id/tvTimeActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uhrzeit: 19:00" />
+
+        <TextView
+            android:id="@+id/tvGamesActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spiele: Catan, Azul, Carcassonne"
+            android:layout_marginTop="8dp" />
+
+        <!-- Bewertungsbutton -->
+        <Button
+            android:id="@+id/btnRateEvening"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rate_evening_button"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#C62828"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

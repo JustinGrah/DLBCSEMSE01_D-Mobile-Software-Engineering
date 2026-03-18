@@ -18,6 +18,9 @@ public interface SessionDao {
     @Query("SELECT * FROM Session WHERE id = :session_id")
     public List<SessionWithMessages> getSessionMessages(int session_id);
 
+    @Query("SELECT * FROM session WHERE group_id = :groupId ORDER BY datetime_start ASC")
+    List<Session> getSessionsForGroup(int groupId);
+
     @Transaction
     @Query("SELECT * FROM Session WHERE id = :session_id")
     public List<SessionWithRatings> getSessionRatings(int session_id);
