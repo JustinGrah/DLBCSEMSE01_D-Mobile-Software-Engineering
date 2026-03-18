@@ -10,7 +10,7 @@ public class Message {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    public int session_id;
+    public int group_id;
     public int sender_id;
     @ColumnInfo(name="type")
     public String type;

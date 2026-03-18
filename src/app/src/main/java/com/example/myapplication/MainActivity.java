@@ -49,15 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton btnNewGame;
     private TextView btnAddDate;
 
-    // Aktive Termin-Card
-    private MaterialCardView cardActiveGame;
-
-    // TextViews der aktiven Termin-Card
-    private TextView tvHostActive;
-    private TextView tvDateActive;
-    private TextView tvTimeActive;
-    private TextView tvLocationActive;
-    private TextView tvGamesActive;
     private SessionAdapter sessionAdapter;
     private Map<Integer, String> userNameMap = new HashMap<>();
 
@@ -102,11 +93,9 @@ public class MainActivity extends AppCompatActivity {
                                     sessionDao.addSession(session);
 
                                     runOnUiThread(() -> {
-                                        loadSessions(); // deine bestehende Methode
+                                        loadSessions();
                                     });
                                 });
-
-                                //showActiveDate(host, dateTime, location);
                             }
                         }
                     }
@@ -215,38 +204,6 @@ public class MainActivity extends AppCompatActivity {
         // und das Voting noch erlaubt ist
         // =========================
 //        cardActiveGame.setOnClickListener(v -> openVotingIfAllowed());
-    }
-
-    /*
-     * showActiveDate
-     *
-     * Zeigt den neu erstellten aktiven Termin in der MainActivity an.
-     */
-    private void showActiveDate(String host, String dateTime, String location) {
-        hasActiveTerm = true;
-        currentDateTime = dateTime;
-
-        // Host anzeigen
-        tvHostActive.setText(host);
-
-        // Datum und Uhrzeit trennen
-        int lastSpaceIndex = dateTime.lastIndexOf(" ");
-        if (lastSpaceIndex != -1) {
-            String datePart = dateTime.substring(0, lastSpaceIndex);
-            String timePart = dateTime.substring(lastSpaceIndex + 1);
-
-            tvDateActive.setText(datePart);
-            tvTimeActive.setText(timePart);
-        } else {
-            tvDateActive.setText(dateTime);
-            tvTimeActive.setText("");
-        }
-
-        // Ort anzeigen
-        tvLocationActive.setText(location);
-
-        // Spieletext zurücksetzen
-        tvGamesActive.setText("Noch keine Spiele ausgewählt");
     }
 
     /*
