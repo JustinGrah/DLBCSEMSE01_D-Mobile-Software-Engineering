@@ -108,34 +108,6 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
-
-        /*
-            Neue TextView wird erstellt, die die Chatnachricht darstellt.
-            Diese fungiert als Chat-Bubble im Chatfenster.
-        */
-//        TextView messageView = new TextView(this);
-//        messageView.setText(message);
-//        messageView.setTextSize(16f);
-//        messageView.setTextColor(getResources().getColor(android.R.color.black));
-//        messageView.setBackgroundResource(R.drawable.bg_chat_bubble_right);
-//        messageView.setPadding(24, 16, 24, 16);
-//
-//        messageView.setLayoutParams(params);
-//
-//        /*
-//            Die neue Nachricht wird dem Chat-Layout hinzugefügt.
-//        */
-//        chatMessagesLayout.addView(messageView);
-//
-//        // Eingabefeld wird nach dem Senden geleert
-//        etChatMessage.setText("");
-//
-//        /*
-//            Scrollt automatisch nach unten,
-//            damit die neueste Nachricht sofort sichtbar ist.
-//        */
-//        chatMessagesContainer.post(() -> chatMessagesContainer.fullScroll(ScrollView.FOCUS_DOWN));
-
         DataStore.databaseWriteExecutor.execute(() -> {
 
             DataStore db = DataStore.getDatabase(this);

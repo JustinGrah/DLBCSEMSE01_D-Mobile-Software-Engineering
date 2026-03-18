@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.myapplication.Database.DataStore;
+import com.example.myapplication.Game.Game;
+import com.example.myapplication.Game.GameDao;
 import com.example.myapplication.Session.Session;
 import com.example.myapplication.Session.SessionAdapter;
 import com.example.myapplication.Session.SessionDao;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SessionAdapter sessionAdapter;
     private Map<Integer, String> userNameMap = new HashMap<>();
+    private List<Game> games;
 
     // Merkt sich, ob ein echter aktiver Termin erstellt wurde
     private boolean hasActiveTerm = false;
@@ -111,12 +114,19 @@ public class MainActivity extends AppCompatActivity {
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> {
-                        // Platz für spätere Ergebnisverarbeitung
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+
+                            boolean updated = result.getData().getBooleanExtra("updated", false);
+
+                            if (updated) {
+                                loadSessions(); // RecyclerView neu laden
+                            }
+                        }
                     }
             );
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         this.user = UserSession.getUser();
         super.onCreate(savedInstanceState);
@@ -129,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Adapter erstellen
         loadUsersForGroup();
-        sessionAdapter = new SessionAdapter(userNameMap);
+        loadGames();
+        sessionAdapter = new SessionAdapter(this.userNameMap, this.games);
         rvSessions.setAdapter(sessionAdapter);
 
         // LayoutManager setzen
@@ -200,10 +211,18 @@ public class MainActivity extends AppCompatActivity {
 
         // =========================
         // Klick auf aktiven Termin öffnet Voting
-        // Nur wenn ein echter aktiver Termin existiert
-        // und das Voting noch erlaubt ist
         // =========================
-//        cardActiveGame.setOnClickListener(v -> openVotingIfAllowed());
+        sessionAdapter.setOnSessionClickListener(session -> {
+
+            Intent intent = new Intent(MainActivity.this, VotingActivity.class);
+
+            // Session-Daten übergeben
+            intent.putExtra("session_id", session.id);
+            intent.putExtra("group_id", session.group_id);
+            intent.putExtra("host_user_id", session.host_user_id);
+
+            votingLauncher.launch(intent);
+        });
     }
 
     /*
@@ -260,6 +279,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadSessions() {
+        loadUsersForGroup();
+        loadGames();
         DataStore.databaseWriteExecutor.execute(() -> {
 
             DataStore db = DataStore.getDatabase(this);
@@ -287,6 +308,16 @@ public class MainActivity extends AppCompatActivity {
             for (User u : users) {
                 userNameMap.put(u.id, u.name);
             }
+        });
+    }
+
+    private void loadGames() {
+        DataStore.databaseWriteExecutor.execute(() -> {
+
+            DataStore db = DataStore.getDatabase(this);
+            GameDao gameDao = db.gameDao();
+
+            this.games = gameDao.listAllGames();
         });
     }
 }

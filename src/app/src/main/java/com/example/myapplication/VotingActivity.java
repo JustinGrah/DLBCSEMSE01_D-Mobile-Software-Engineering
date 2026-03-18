@@ -78,70 +78,70 @@ public class VotingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
 
-        /*
-         * Datum des aktiven Termins auslesen
-         */
-        dateTimeFromIntent = getIntent().getStringExtra("dateTime");
-
-        /*
-         * Alle Views mit den IDs aus dem Layout verbinden
-         */
-        initViews();
-
-        /*
-         * Views in Listen sammeln
-         */
-        initCollections();
-
-        /*
-         * Zurück-Pfeil
-         */
-        setupBackButton();
-
-        /*
-         * Auswahl-Limits
-         */
-        setupPlaceholderBehaviour();
-
-        /*
-         * Voting deaktivieren, wenn der Termin
-         * in weniger als 24 Stunden stattfindet
-         */
-        disableVotingIfNeeded();
+//        /*
+//         * Datum des aktiven Termins auslesen
+//         */
+//        dateTimeFromIntent = getIntent().getStringExtra("dateTime");
+//
+//        /*
+//         * Alle Views mit den IDs aus dem Layout verbinden
+//         */
+//        initViews();
+//
+//        /*
+//         * Views in Listen sammeln
+//         */
+//        initCollections();
+//
+//        /*
+//         * Zurück-Pfeil
+//         */
+//        setupBackButton();
+//
+//        /*
+//         * Auswahl-Limits
+//         */
+//        setupPlaceholderBehaviour();
+//
+//        /*
+//         * Voting deaktivieren, wenn der Termin
+//         * in weniger als 24 Stunden stattfindet
+//         */
+//        disableVotingIfNeeded();
     }
 
     private void initViews() {
-        btnBack = findViewById(R.id.btnBack);
-
-        cbGame1 = findViewById(R.id.cbGame1);
-        cbGame2 = findViewById(R.id.cbGame2);
-        cbGame3 = findViewById(R.id.cbGame3);
-        cbGame4 = findViewById(R.id.cbGame4);
-
-        progressGame1 = findViewById(R.id.progressGame1);
-        progressGame2 = findViewById(R.id.progressGame2);
-        progressGame3 = findViewById(R.id.progressGame3);
-        progressGame4 = findViewById(R.id.progressGame4);
-
-        tvProgressGame1 = findViewById(R.id.tvProgressGame1);
-        tvProgressGame2 = findViewById(R.id.tvProgressGame2);
-        tvProgressGame3 = findViewById(R.id.tvProgressGame3);
-        tvProgressGame4 = findViewById(R.id.tvProgressGame4);
-
-        cbFoodPizza = findViewById(R.id.cbFoodPizza);
-        cbFoodBurger = findViewById(R.id.cbFoodBurger);
-        cbFoodAsian = findViewById(R.id.cbFoodAsian);
-        cbFoodItalian = findViewById(R.id.cbFoodItalian);
-
-        progressFoodPizza = findViewById(R.id.progressFoodPizza);
-        progressFoodBurger = findViewById(R.id.progressFoodBurger);
-        progressFoodAsian = findViewById(R.id.progressFoodAsian);
-        progressFoodItalian = findViewById(R.id.progressFoodItalian);
-
-        tvProgressFoodPizza = findViewById(R.id.tvProgressFoodPizza);
-        tvProgressFoodBurger = findViewById(R.id.tvProgressFoodBurger);
-        tvProgressFoodAsian = findViewById(R.id.tvProgressFoodAsian);
-        tvProgressFoodItalian = findViewById(R.id.tvProgressFoodItalian);
+//        btnBack = findViewById(R.id.btnBack);
+//
+//        cbGame1 = findViewById(R.id.cbGame1);
+//        cbGame2 = findViewById(R.id.cbGame2);
+//        cbGame3 = findViewById(R.id.cbGame3);
+//        cbGame4 = findViewById(R.id.cbGame4);
+//
+//        progressGame1 = findViewById(R.id.progressGame1);
+//        progressGame2 = findViewById(R.id.progressGame2);
+//        progressGame3 = findViewById(R.id.progressGame3);
+//        progressGame4 = findViewById(R.id.progressGame4);
+//
+//        tvProgressGame1 = findViewById(R.id.tvProgressGame1);
+//        tvProgressGame2 = findViewById(R.id.tvProgressGame2);
+//        tvProgressGame3 = findViewById(R.id.tvProgressGame3);
+//        tvProgressGame4 = findViewById(R.id.tvProgressGame4);
+//
+//        cbFoodPizza = findViewById(R.id.cbFoodPizza);
+//        cbFoodBurger = findViewById(R.id.cbFoodBurger);
+//        cbFoodAsian = findViewById(R.id.cbFoodAsian);
+//        cbFoodItalian = findViewById(R.id.cbFoodItalian);
+//
+//        progressFoodPizza = findViewById(R.id.progressFoodPizza);
+//        progressFoodBurger = findViewById(R.id.progressFoodBurger);
+//        progressFoodAsian = findViewById(R.id.progressFoodAsian);
+//        progressFoodItalian = findViewById(R.id.progressFoodItalian);
+//
+//        tvProgressFoodPizza = findViewById(R.id.tvProgressFoodPizza);
+//        tvProgressFoodBurger = findViewById(R.id.tvProgressFoodBurger);
+//        tvProgressFoodAsian = findViewById(R.id.tvProgressFoodAsian);
+//        tvProgressFoodItalian = findViewById(R.id.tvProgressFoodItalian);
     }
 
     private void initCollections() {
