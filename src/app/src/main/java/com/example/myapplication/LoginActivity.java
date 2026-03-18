@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Database.DataStore;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserDao;
+import com.example.myapplication.User.UserSession;
 
 import java.util.List;
 
@@ -79,14 +80,9 @@ public class LoginActivity extends AppCompatActivity {
         DataStore.databaseWriteExecutor.execute(() -> {
             User user = userDao.getUserByName(username);
 
-            Log.d("Login", user.name);
-            Log.d("Login", user.password.trim());
-            Log.d("Login", password.trim());
-
-
             if(user != null) {
                 if(user.password.equals(password)) {
-                    Log.d("Login", "password correct");
+                    UserSession.setUser(user);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {

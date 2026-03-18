@@ -81,6 +81,7 @@
     <string name="members_title">Mitglieder</string>
     <string name="leave_group_button">Gruppe verlassen</string>
     <string name="group_code_button">Code generieren</string>
+    <string name="group_add_button">Gruppe erstellen</string>
 
     <!-- New Game -->
     <string name="games_title">Spiele</string>

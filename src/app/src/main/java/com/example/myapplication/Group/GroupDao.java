@@ -28,4 +28,8 @@ public interface GroupDao {
     @Transaction
     @Query("SELECT * FROM `Group` WHERE id = :id")
     public List<GroupWithSessions> getAllGroupSessions(int id);
+
+    @Transaction
+    @Query("SELECT * FROM `Group` WHERE id = :id")
+    public List<GroupWithUsers> getAllGroupUsers(int id);
 }

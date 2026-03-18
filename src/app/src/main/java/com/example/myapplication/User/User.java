@@ -11,6 +11,8 @@ public class User {
     public String name;
     @ColumnInfo(name = "password")
     public String password;
+    @ColumnInfo(name = "group_id")
+    public int groupId;
 
     public User(String name, String password) {
         this.name = name;

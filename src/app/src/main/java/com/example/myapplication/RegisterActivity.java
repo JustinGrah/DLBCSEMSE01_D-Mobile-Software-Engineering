@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             this.RegisterUser(username, password);
         });
-
     }
 
     private void RegisterUser(String username, String password) {
