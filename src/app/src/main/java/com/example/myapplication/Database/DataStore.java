@@ -17,6 +17,10 @@ import com.example.myapplication.Rating.RatingDao;
 import com.example.myapplication.Session.Session;
 import com.example.myapplication.Session.SessionDao;
 import com.example.myapplication.User.*;
+import com.example.myapplication.Voting.VotingFood;
+import com.example.myapplication.Voting.VotingFoodDao;
+import com.example.myapplication.Voting.VotingGamesDao;
+import com.example.myapplication.Voting.VotingGames;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +31,9 @@ import java.util.concurrent.Executors;
         Rating.class,
         Message.class,
         Group.class,
-        Game.class
+        Game.class,
+        VotingGames.class,
+        VotingFood.class
 
 }, version = 2, exportSchema = false)
 public abstract class DataStore extends RoomDatabase {
@@ -37,6 +43,8 @@ public abstract class DataStore extends RoomDatabase {
     public abstract MessageDao messageDao();
     public abstract GroupDao groupDao();
     public abstract GameDao gameDao();
+    public abstract VotingGamesDao votingGamesDao();
+    public abstract VotingFoodDao votingFoodDao();
 
     private static volatile DataStore INSTANCE;
 

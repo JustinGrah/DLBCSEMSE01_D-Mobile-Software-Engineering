@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ import com.example.myapplication.Session.SessionDao;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserDao;
 import com.example.myapplication.User.UserSession;
+import com.example.myapplication.Voting.VotingGames;
+import com.example.myapplication.Voting.VotingGamesDao;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     // Speichert das aktuelle Termin-Datum als String
     private String currentDateTime = "";
     private User user;
+    private boolean hasVoted = true;
 
     /*
      * Launcher für NewDateActivity
@@ -212,70 +216,37 @@ public class MainActivity extends AppCompatActivity {
         // =========================
         // Klick auf aktiven Termin öffnet Voting
         // =========================
+
+
+
         sessionAdapter.setOnSessionClickListener(session -> {
+            DataStore db = DataStore.getDatabase(this);
+            VotingGamesDao votingGamesDao = db.votingGamesDao();
 
-            Intent intent = new Intent(MainActivity.this, VotingActivity.class);
+            DataStore.databaseWriteExecutor.execute(() -> {
+                int votes = votingGamesDao.countGameVotesForUser(user.id,session.id);
+                Log.d("MAIN", "ID: " + user.id);
+                Log.d("MAIN", "ID SESSION: " + session.id);
+                Log.d("MAIN", "onCreate: Votes " + votes);
 
-            // Session-Daten übergeben
-            intent.putExtra("session_id", session.id);
-            intent.putExtra("group_id", session.group_id);
-            intent.putExtra("host_user_id", session.host_user_id);
+                if(votes <= 0 ) {
+                    runOnUiThread(() -> {
+                        Intent intent = new Intent(MainActivity.this, VotingActivity.class);
 
-            votingLauncher.launch(intent);
+                        // Session-Daten übergeben
+                        intent.putExtra("session_id", session.id);
+                        intent.putExtra("group_id", session.group_id);
+                        intent.putExtra("host_user_id", session.host_user_id);
+
+                        votingLauncher.launch(intent);
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(this, "Du hast bereits abgestimmt!", Toast.LENGTH_SHORT).show();
+                    });
+                };
+            });
         });
-    }
-
-    /*
-     * openVotingIfAllowed
-     *
-     * Öffnet die VotingActivity nur dann,
-     * wenn ein aktiver Termin existiert und das Voting zeitlich noch erlaubt ist.
-     */
-    private void openVotingIfAllowed() {
-
-        if (!hasActiveTerm) {
-            Toast.makeText(this, "Bitte zuerst einen Termin erstellen", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!isVotingStillAllowed(currentDateTime)) {
-            Toast.makeText(this,
-                    "Abstimmen ist nur bis 1 Tag vor dem Termin möglich",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(MainActivity.this, VotingActivity.class);
-        intent.putExtra("dateTime", currentDateTime);
-        votingLauncher.launch(intent);
-    }
-
-    /*
-     * isVotingStillAllowed
-     *
-     * Prüft, ob der Termin mehr als 24 Stunden in der Zukunft liegt.
-     * Nur dann darf noch abgestimmt werden.
-     */
-    private boolean isVotingStillAllowed(String dateTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
-
-        try {
-            Date date = sdf.parse(dateTime);
-            if (date == null) {
-                return false;
-            }
-
-            long nowMillis = System.currentTimeMillis();
-            long termMillis = date.getTime();
-
-            long diffMillis = termMillis - nowMillis;
-            long oneDayMillis = 24L * 60L * 60L * 1000L;
-
-            return diffMillis > oneDayMillis;
-
-        } catch (ParseException e) {
-            return false;
-        }
     }
 
     private void loadSessions() {
