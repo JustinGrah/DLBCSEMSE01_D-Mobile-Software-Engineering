@@ -89,11 +89,19 @@ public class MainActivity extends AppCompatActivity {
                                     SessionDao sessionDao = db.sessionDao();
                                     User hostUser = userDao.getUserByName(host);
 
+                                    Date date = new Date();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
+                                    try {
+                                        date = sdf.parse(dateTime);
+                                    } catch (ParseException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
                                     // 2. Neue Session erstellen
                                     Session session = new Session();
                                     session.group_id = user.groupId;
                                     session.host_user_id = hostUser.id; // falls host eine ID ist
-                                    session.datetime_start = dateTime;
+                                    session.datetime_start = date.getTime();
                                     session.location = location;
                                     session.status = "planned";
 
@@ -134,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.user = UserSession.getUser();
         super.onCreate(savedInstanceState);
+
+        loadSessions();
 
         // Verbindet diese Activity mit dem Layout der Hauptseite
         setContentView(R.layout.activity_main);
@@ -216,18 +226,12 @@ public class MainActivity extends AppCompatActivity {
         // =========================
         // Klick auf aktiven Termin öffnet Voting
         // =========================
-
-
-
         sessionAdapter.setOnSessionClickListener(session -> {
             DataStore db = DataStore.getDatabase(this);
             VotingGamesDao votingGamesDao = db.votingGamesDao();
 
             DataStore.databaseWriteExecutor.execute(() -> {
                 int votes = votingGamesDao.countGameVotesForUser(user.id,session.id);
-                Log.d("MAIN", "ID: " + user.id);
-                Log.d("MAIN", "ID SESSION: " + session.id);
-                Log.d("MAIN", "onCreate: Votes " + votes);
 
                 if(votes <= 0 ) {
                     runOnUiThread(() -> {

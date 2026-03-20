@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Dao
 public interface SessionDao {
-    @Query("SELECT * FROM session WHERE group_id = :groupId ORDER BY datetime_start ASC")
+    @Query("SELECT * FROM session WHERE group_id = :groupId ORDER BY datetime_start DESC")
     List<Session> getSessionsForGroup(int groupId);
 
     @Transaction

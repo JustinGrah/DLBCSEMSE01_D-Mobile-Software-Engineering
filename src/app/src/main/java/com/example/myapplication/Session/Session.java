@@ -16,7 +16,7 @@ public class Session {
     public int host_user_id;
 
     @ColumnInfo(name = "datetime_start")
-    public String datetime_start;
+    public long datetime_start;
 
     @ColumnInfo(name = "location")
     public String location;
