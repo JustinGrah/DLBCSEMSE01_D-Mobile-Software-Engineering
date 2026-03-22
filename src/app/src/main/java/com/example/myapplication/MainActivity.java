@@ -2,14 +2,12 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +22,8 @@ import com.example.myapplication.Session.SessionDao;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserDao;
 import com.example.myapplication.User.UserSession;
-import com.example.myapplication.Voting.VotingGames;
 import com.example.myapplication.Voting.VotingGamesDao;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -97,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                                         throw new RuntimeException(e);
                                     }
 
-                                    // 2. Neue Session erstellen
                                     Session session = new Session();
                                     session.group_id = user.groupId;
                                     session.host_user_id = hostUser.id; // falls host eine ID ist
@@ -135,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
+            );
+
+    private final ActivityResultLauncher<Intent> votingResultLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {}
             );
 
     @Override
@@ -246,7 +247,13 @@ public class MainActivity extends AppCompatActivity {
                     });
                 } else {
                     runOnUiThread(() -> {
-                        Toast.makeText(this, "Du hast bereits abgestimmt!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, VotingShowActivity.class);
+
+                        // Session-Daten übergeben
+                        intent.putExtra("session_id", session.id);
+                        intent.putExtra("group_id", session.group_id);
+                        intent.putExtra("host_user_id", session.host_user_id);
+                        votingResultLauncher.launch(intent);
                     });
                 };
             });

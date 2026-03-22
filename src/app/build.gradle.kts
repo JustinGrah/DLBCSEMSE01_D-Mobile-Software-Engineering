@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.cardview)
     val room_version = "2.8.4"
     implementation(libs.appcompat)
     implementation(libs.material)

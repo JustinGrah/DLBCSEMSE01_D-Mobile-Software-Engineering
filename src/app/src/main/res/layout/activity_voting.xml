@@ -6,21 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".VotingActivity">
 
-    <!-- Zurück-Pfeil oben links -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="@dimen/screen_margin"
-        android:layout_marginTop="@dimen/screen_margin"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/back"
-        android:padding="@dimen/spacing_small"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@android:color/black" />
-
 <!--    &lt;!&ndash; Titel mittig &ndash;&gt;-->
 <!--    <TextView-->
 <!--        android:id="@+id/tvVotingTitle"-->
@@ -472,6 +457,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#88FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/back_button_description"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <!-- Titel -->
     <TextView

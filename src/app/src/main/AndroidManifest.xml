@@ -32,6 +32,9 @@
             android:name=".SettingsActivity"
             android:exported="false" /> <!-- Startseite der App -->
         <activity
+            android:name=".VotingShowActivity"
+            android:exported="false" /> <!-- Games Voting liste der App -->
+        <activity
             android:name=".LoginActivity"
             android:exported="true">   <!-- Login Seite -->
             <intent-filter>
