@@ -16,9 +16,8 @@ public interface SessionDao {
     @Query("SELECT * FROM session WHERE group_id = :groupId ORDER BY datetime_start DESC")
     List<Session> getSessionsForGroup(int groupId);
 
-    @Transaction
-    @Query("SELECT * FROM Session WHERE id = :session_id")
-    public List<SessionWithRatings> getSessionRatings(int session_id);
+    @Query("SELECT * FROM Session ORDER BY datetime_start DESC LIMIT 1")
+    Session getNextSession();
 
     @Insert
     void addSession(Session session);

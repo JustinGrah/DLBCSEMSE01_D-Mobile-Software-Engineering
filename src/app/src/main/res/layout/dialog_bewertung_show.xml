@@ -138,12 +138,12 @@
                 app:layout_constraintTop_toBottomOf="@id/tvBewertungSubtitle" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBewerten"
+                android:id="@+id/btnDialogBack"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="28dp"
                 android:elevation="4dp"
-                android:text="@string/bewerten_button"
+                android:text="Zurück"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 app:backgroundTint="#C62828"

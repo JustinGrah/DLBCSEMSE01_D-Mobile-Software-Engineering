@@ -29,13 +29,24 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
     private Map<Integer, String> userNameMap;
     private List<Game> games;
     private OnSessionClickListener listener;
+    private OnRateButtonClickListener rateListener;
 
     public interface OnSessionClickListener {
         void onSessionClick(Session session);
     }
 
+    public interface OnRateButtonClickListener {
+        void onRateButtonClick(Session session);
+    }
+
+
+
     public void setOnSessionClickListener(OnSessionClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setOnRateButtonClickListener(OnRateButtonClickListener rateListener) {
+        this.rateListener = rateListener;
     }
 
     public SessionAdapter(Map<Integer, String> userNameMap, List<Game> games) {
@@ -71,6 +82,12 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onSessionClick(session);
+            }
+        });
+
+        holder.btnRate.setOnClickListener(v -> {
+            if(rateListener != null) {
+                rateListener.onRateButtonClick(session);
             }
         });
 

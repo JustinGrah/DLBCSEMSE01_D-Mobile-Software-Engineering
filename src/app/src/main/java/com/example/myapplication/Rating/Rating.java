@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Rating {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
 
     @ColumnInfo(name = "session_id")

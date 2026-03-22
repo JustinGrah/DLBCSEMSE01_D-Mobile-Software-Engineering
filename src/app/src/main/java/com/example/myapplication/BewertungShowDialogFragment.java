@@ -1,12 +1,12 @@
 package com.example.myapplication;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
@@ -15,39 +15,22 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.button.MaterialButton;
 
-/*
- * BewertungDialogFragment
- *
- * Dieser Dialog wird als kleines Fenster in der Mitte angezeigt.
- * Die aktuelle Activity bleibt im Hintergrund sichtbar.
- *
- * Aktuell enthält der Dialog nur das Frontend.
- * Die eigentliche Speicherung der Bewertung erfolgt später über eine Datenbank.
- */
-public class BewertungDialogFragment extends DialogFragment {
+public class BewertungShowDialogFragment extends DialogFragment {
     private RatingBar ratingBarFood;
     private RatingBar ratingBarOverall;
     private RatingBar ratingBarHost;
+    private MaterialButton btnBack;
 
-    private MaterialButton btnBewerten;
-    private BewertungListener listener;
+    private float avgFood;
+    private float avgHost;
+    private float avgOverall;
 
-    public interface BewertungListener {
-        void onBewertungAbgegeben(int ratingHost, int ratingFood, int ratingOverall);
+    BewertungShowDialogFragment(float avgHost, float avgFood, float avgOverall) {
+        this.avgHost = avgHost;
+        this.avgFood = avgFood;
+        this.avgOverall = avgOverall;
     }
 
-    public void setBewertungListener(BewertungListener listener) {
-        this.listener = listener;
-    }
-
-    /*
-     * onCreateDialog
-     *
-     * Entfernt den Standardhintergrund des Dialogs,
-     * damit das Layout mit abgerundeten Ecken sichtbar bleibt.
-     */
-    @NonNull
-    @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         Dialog dialog = super.onCreateDialog(savedInstanceState);
@@ -65,6 +48,7 @@ public class BewertungDialogFragment extends DialogFragment {
     /*
      * onCreateView
      *
+     *
      * Lädt das Layout des Bewertungsdialogs.
      */
     @Nullable
@@ -73,7 +57,7 @@ public class BewertungDialogFragment extends DialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.dialog_bewertung, container, false);
+        return inflater.inflate(R.layout.dialog_bewertung_show, container, false);
     }
 
     /*
@@ -115,26 +99,25 @@ public class BewertungDialogFragment extends DialogFragment {
         ratingBarFood = view.findViewById(R.id.ratingBarFood);
         ratingBarOverall = view.findViewById(R.id.ratingBarOverall);
 
+        ratingBarHost.setEnabled(false);
+        ratingBarFood.setEnabled(false);
+        ratingBarOverall.setEnabled(false);
+
+        ratingBarHost.setRating(this.avgFood);
+        ratingBarFood.setRating(this.avgHost);
+        ratingBarOverall.setRating(this.avgOverall);
+
         // Bewertungsbutton aus dem Layout holen
-        btnBewerten = view.findViewById(R.id.btnBewerten);
+        btnBack = view.findViewById(R.id.btnDialogBack);
 
         /*
-         * Klick auf "Bewerten"
+         * Klick auf "Zurück"
          *
-         * - Bewertungswert aus der RatingBar lesen
-         * - Nachricht anzeigen
          * - Dialog schließen
          */
-        btnBewerten.setOnClickListener(v -> {
-
-            float ratingHost = ratingBarHost.getRating();
-            float ratingFood = ratingBarFood.getRating();
-            float ratingOverall = ratingBarOverall.getRating();
-
-            if (listener != null) {
-                listener.onBewertungAbgegeben((int) ratingHost, (int) ratingFood, (int) ratingOverall);
-            }
+        btnBack.setOnClickListener(v -> {
             dismiss();
         });
     }
+
 }

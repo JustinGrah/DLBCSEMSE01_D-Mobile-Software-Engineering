@@ -2,9 +2,9 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -16,9 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Database.DataStore;
 import com.example.myapplication.Game.Game;
 import com.example.myapplication.Game.GameDao;
+import com.example.myapplication.Group.Group;
+import com.example.myapplication.Group.GroupDao;
+import com.example.myapplication.Group.GroupWithUsers;
+import com.example.myapplication.Rating.Rating;
+import com.example.myapplication.Rating.RatingDao;
 import com.example.myapplication.Session.Session;
 import com.example.myapplication.Session.SessionAdapter;
 import com.example.myapplication.Session.SessionDao;
+import com.example.myapplication.Rating.SessionRatings;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserDao;
 import com.example.myapplication.User.UserSession;
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton btnSettings;
     private MaterialButton btnNewGame;
     private TextView btnAddDate;
+    private TextView nextHost;
 
     private SessionAdapter sessionAdapter;
     private Map<Integer, String> userNameMap = new HashMap<>();
@@ -144,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
         this.user = UserSession.getUser();
         super.onCreate(savedInstanceState);
 
-        loadSessions();
-
         // Verbindet diese Activity mit dem Layout der Hauptseite
         setContentView(R.layout.activity_main);
 
@@ -183,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
         btnSettings = findViewById(R.id.btnSettings);
         btnNewGame = findViewById(R.id.btnNewGame);
         btnAddDate = findViewById(R.id.btnAddDate);
+        this.nextHost = findViewById(R.id.tvNextHost);
+        updateNextHost();
 
         // =========================
         // Chat öffnen
@@ -191,14 +198,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ChatActivity.class);
             startActivity(intent);
         });
-
-        // =========================
-        // Bewertungsdialog öffnen
-        // =========================
-//        btnRateEvening.setOnClickListener(v -> {
-//            BewertungDialogFragment dialog = new BewertungDialogFragment();
-//            dialog.show(getSupportFragmentManager(), "BewertungDialog");
-//        });
 
         // =========================
         // Settings öffnen
@@ -244,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("host_user_id", session.host_user_id);
 
                         votingLauncher.launch(intent);
+                        loadSessions();
                     });
                 } else {
                     runOnUiThread(() -> {
@@ -254,10 +254,58 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("group_id", session.group_id);
                         intent.putExtra("host_user_id", session.host_user_id);
                         votingResultLauncher.launch(intent);
+                        loadSessions();
                     });
                 };
             });
         });
+        sessionAdapter.setOnRateButtonClickListener(session -> {
+
+            BewertungDialogFragment dialog = new BewertungDialogFragment();
+
+
+            dialog.setBewertungListener((int ratingHost, int ratingFood, int ratingOverall) -> {
+
+                DataStore.databaseWriteExecutor.execute(() -> {
+
+                    DataStore db = DataStore.getDatabase(this);
+                    RatingDao ratingDao = db.ratingDao();
+
+                    Rating rating = new Rating();
+                    rating.host_rating = ratingHost;
+                    rating.food_rating = ratingFood;
+                    rating.overall_rating = ratingOverall;
+                    rating.session_id = session.id;
+                    rating.rater_user_id = user.id;
+
+                    ratingDao.addRating(rating);
+                });
+            });
+
+            DataStore.databaseWriteExecutor.execute(() -> {
+                DataStore db = DataStore.getDatabase(this);
+                RatingDao ratingDao = db.ratingDao();
+
+                int votes = ratingDao.getVotesForUser(user.id,session.id);
+
+                if(votes <= 0 ) {
+                    dialog.show(getSupportFragmentManager(),"BewertungDialog");
+                } else {
+                    SessionRatings ratings = ratingDao.getAveragesForSession(session.id);
+
+                    BewertungShowDialogFragment dialogRatingShow = new BewertungShowDialogFragment(ratings.avgHost, ratings.avgFood, ratings.avgOverall);
+                    dialogRatingShow.show(getSupportFragmentManager(), "BewertungDialogShow");
+                }
+
+            });
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadSessions();
+        updateNextHost();
     }
 
     private void loadSessions() {
@@ -300,6 +348,31 @@ public class MainActivity extends AppCompatActivity {
             GameDao gameDao = db.gameDao();
 
             this.games = gameDao.listAllGames();
+        });
+    }
+
+    private void updateNextHost() {
+        DataStore.databaseWriteExecutor.execute(() -> {
+
+            DataStore db = DataStore.getDatabase(this);
+            SessionDao sessionDao = db.sessionDao();
+            GroupDao groupDao = db.groupDao();
+            Session nextSession = sessionDao.getNextSession();
+            List<GroupWithUsers> groupWithUsers = groupDao.getAllGroupUsers(user.groupId);
+            List<User> members = groupWithUsers.get(0).user;
+
+            for(User u : members) {
+                if(u.id == nextSession.host_user_id) {
+                    int nextIndex = (members.indexOf(u) + 1) % members.size();
+                    User nextHostUser =  members.get(nextIndex);
+                    Log.d("asd", "updateNextHost: " + nextHostUser.name);
+
+                    runOnUiThread(() -> {
+                        this.nextHost.setText("Nächster Gastgeber: " + nextHostUser.name);
+                    });
+                    break;
+                }
+            }
         });
     }
 }
