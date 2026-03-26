@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+// Interface zum speichern und lesen von daten
 @Dao
 public interface RatingDao {
     @Insert

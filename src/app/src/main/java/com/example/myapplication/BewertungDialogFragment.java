@@ -1,12 +1,12 @@
 package com.example.myapplication;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;

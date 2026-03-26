@@ -1,6 +1,5 @@
 package com.example.myapplication.Session;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Game.Game;
 import com.example.myapplication.R;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+// Adapter zum erstellen eines Recycler Views
 public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionViewHolder> {
 
-
+    // Platzhalter für alle daten welche angezeigt werden müssen
     private List<Session> sessions = new ArrayList<>();
     private Map<Integer, String> userNameMap;
     private List<Game> games;
@@ -40,7 +37,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
     }
 
 
-
+    // Setter und das verlinken von "Item-Actions"
     public void setOnSessionClickListener(OnSessionClickListener listener) {
         this.listener = listener;
     }
@@ -60,6 +57,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         notifyDataSetChanged();
     }
 
+    // laden des Items
     @Override
     public SessionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -67,6 +65,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         return new SessionViewHolder(view);
     }
 
+    // befüllen des Items
     @Override
     public void onBindViewHolder(SessionViewHolder holder, int position) {
         Session session = sessions.get(position);

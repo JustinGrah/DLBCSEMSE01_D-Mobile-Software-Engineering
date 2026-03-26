@@ -1,10 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;

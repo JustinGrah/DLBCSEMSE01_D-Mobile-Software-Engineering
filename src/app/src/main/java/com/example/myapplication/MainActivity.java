@@ -12,19 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.myapplication.Database.DataStore;
 import com.example.myapplication.Game.Game;
 import com.example.myapplication.Game.GameDao;
-import com.example.myapplication.Group.Group;
 import com.example.myapplication.Group.GroupDao;
 import com.example.myapplication.Group.GroupWithUsers;
 import com.example.myapplication.Rating.Rating;
 import com.example.myapplication.Rating.RatingDao;
+import com.example.myapplication.Rating.SessionRatings;
 import com.example.myapplication.Session.Session;
 import com.example.myapplication.Session.SessionAdapter;
 import com.example.myapplication.Session.SessionDao;
-import com.example.myapplication.Rating.SessionRatings;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserDao;
 import com.example.myapplication.User.UserSession;
@@ -61,13 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private Map<Integer, String> userNameMap = new HashMap<>();
     private List<Game> games;
 
-    // Merkt sich, ob ein echter aktiver Termin erstellt wurde
-    private boolean hasActiveTerm = false;
-
-    // Speichert das aktuelle Termin-Datum als String
-    private String currentDateTime = "";
     private User user;
-    private boolean hasVoted = true;
 
     /*
      * Launcher für NewDateActivity
@@ -308,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
         updateNextHost();
     }
 
+    // Helfer Methoden um Daten zu laden
     private void loadSessions() {
         loadUsersForGroup();
         loadGames();

@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// Adapter für den Recycler View zum anzeigen aller games.
 public class VotingGamesAdapter extends RecyclerView.Adapter<VotingGamesAdapter.ViewHolder> {
 
     private Map<Integer, Boolean> selected = new HashMap<>();

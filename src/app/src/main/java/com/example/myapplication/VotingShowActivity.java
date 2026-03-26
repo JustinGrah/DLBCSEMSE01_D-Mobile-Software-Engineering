@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
@@ -10,18 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Database.DataStore;
-import com.example.myapplication.Game.Game;
-import com.example.myapplication.Game.GameDao;
-import com.example.myapplication.Message.MessageAdapter;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserSession;
-import com.example.myapplication.Voting.VotingGames;
 import com.example.myapplication.Voting.VotingGamesDao;
 import com.example.myapplication.Voting.VotingGamesResultAdapter;
 import com.example.myapplication.Voting.VotingGamesWithGame;
 
 import java.util.List;
-import java.util.Map;
 
 public class VotingShowActivity extends AppCompatActivity {
     private User user;

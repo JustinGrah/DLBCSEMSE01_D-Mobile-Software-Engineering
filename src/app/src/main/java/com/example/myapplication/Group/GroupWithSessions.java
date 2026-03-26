@@ -8,6 +8,7 @@ import com.example.myapplication.Session.Session;
 
 import java.util.List;
 
+// Kreuztabelle zum referenzieren von Gruppen und den dazugehörigen Sitzungen.
 @Entity
 public class GroupWithSessions {
     @Embedded

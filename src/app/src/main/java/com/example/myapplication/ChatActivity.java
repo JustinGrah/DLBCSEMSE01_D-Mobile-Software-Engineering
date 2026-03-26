@@ -1,12 +1,10 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -125,6 +123,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    // Helfer Methoden um Daten zu laden
     private void loadUsersForGroup() {
 
         DataStore.databaseWriteExecutor.execute(() -> {

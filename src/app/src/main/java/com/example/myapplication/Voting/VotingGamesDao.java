@@ -4,11 +4,9 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.myapplication.Game.Game;
-
 import java.util.List;
-import java.util.Map;
 
+// Interface zum speichern und lesen von daten
 @Dao
 public interface VotingGamesDao {
 

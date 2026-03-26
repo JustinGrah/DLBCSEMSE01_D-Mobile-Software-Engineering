@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// Entität einer Bewertung von dem Abend
 @Entity
 public class Rating {
 

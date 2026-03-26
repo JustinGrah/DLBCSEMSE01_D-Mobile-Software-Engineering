@@ -3,6 +3,8 @@ package com.example.myapplication.User;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+// Entität eines Benutzers
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)

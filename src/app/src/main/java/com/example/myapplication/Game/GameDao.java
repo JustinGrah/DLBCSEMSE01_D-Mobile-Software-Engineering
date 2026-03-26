@@ -7,6 +7,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
+// Interface zum speichern und lesen von daten
 @Dao
 public interface GameDao {
 

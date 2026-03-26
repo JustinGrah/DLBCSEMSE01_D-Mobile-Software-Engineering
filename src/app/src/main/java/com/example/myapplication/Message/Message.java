@@ -2,9 +2,9 @@ package com.example.myapplication.Message;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+// Nachrichten Entität für den Chat
 @Entity
 public class Message {
     @PrimaryKey(autoGenerate = true)

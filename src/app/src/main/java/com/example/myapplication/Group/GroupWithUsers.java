@@ -7,6 +7,7 @@ import com.example.myapplication.User.User;
 
 import java.util.List;
 
+// Kreuztablle zum anzeigen aller Benutzer in einer Gruppe
 public class GroupWithUsers {
     @Embedded
     Group group;

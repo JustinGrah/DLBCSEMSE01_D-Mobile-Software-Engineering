@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
+// Interface zum speichern und lesen von daten
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM User")

@@ -8,6 +8,7 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
+// Interface zum speichern und lesen von daten
 @Dao
 public interface GroupDao {
     @Query("SELECT * FROM `Group`")

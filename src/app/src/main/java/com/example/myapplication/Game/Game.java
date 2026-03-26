@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// Game entitiy. Zum speichern der Spiele - global.
 @Entity
 public class Game {
     @PrimaryKey(autoGenerate = true)

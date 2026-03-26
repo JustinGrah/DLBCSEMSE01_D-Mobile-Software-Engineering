@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Database.DataStore;
-import com.example.myapplication.Game.Game;
-import com.example.myapplication.Game.GameDao;
 import com.example.myapplication.Group.Group;
 import com.example.myapplication.Group.GroupDao;
 import com.example.myapplication.Group.GroupWithUsers;

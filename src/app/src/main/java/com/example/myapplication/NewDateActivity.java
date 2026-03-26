@@ -181,8 +181,6 @@ public class NewDateActivity extends AppCompatActivity {
         resultIntent.putExtra("dateTime", dateTime);
         resultIntent.putExtra("location", location);
 
-
-
         setResult(RESULT_OK, resultIntent);
 
         // Kurze Rückmeldung

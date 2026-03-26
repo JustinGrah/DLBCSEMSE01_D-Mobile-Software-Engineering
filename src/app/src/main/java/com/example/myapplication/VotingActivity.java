@@ -15,9 +15,6 @@ import com.example.myapplication.Game.Game;
 import com.example.myapplication.Game.GameDao;
 import com.example.myapplication.User.User;
 import com.example.myapplication.User.UserSession;
-import com.example.myapplication.Voting.VotingFood;
-import com.example.myapplication.Voting.VotingFoodAdapter;
-import com.example.myapplication.Voting.VotingFoodDao;
 import com.example.myapplication.Voting.VotingGames;
 import com.example.myapplication.Voting.VotingGamesAdapter;
 import com.example.myapplication.Voting.VotingGamesDao;
@@ -28,10 +25,7 @@ public class VotingActivity extends AppCompatActivity {
 
     private ImageButton btnBack;
     private VotingGamesAdapter gameVotingAdapter;
-    private VotingFoodAdapter foodVotingAdapter;
-
     private RecyclerView rvGameVoting;
-    private RecyclerView rvFoodVoting;
     private Button btnSubmitVotes;
     private int sessionId;
     private int groupId;
@@ -54,17 +48,13 @@ public class VotingActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         rvGameVoting = findViewById(R.id.rvGameVoting);
-        rvFoodVoting = findViewById(R.id.rvFoodVoting);
         btnSubmitVotes = findViewById(R.id.btnSubmitVotes);
 
         gameVotingAdapter = new VotingGamesAdapter();
-        foodVotingAdapter = new VotingFoodAdapter();
 
         rvGameVoting.setLayoutManager(new LinearLayoutManager(this));
-        rvFoodVoting.setLayoutManager(new LinearLayoutManager(this));
 
         rvGameVoting.setAdapter(gameVotingAdapter);
-        rvFoodVoting.setAdapter(foodVotingAdapter);
 
         loadVotingData();
         setupSubmitButton();
@@ -87,14 +77,11 @@ public class VotingActivity extends AppCompatActivity {
         btnSubmitVotes.setOnClickListener(v -> {
 
             List<Game> selectedGames = gameVotingAdapter.getSelectedGames();
-            List<VotingFood> selectedFood = foodVotingAdapter.getSelectedFood();
 
             DataStore.databaseWriteExecutor.execute(() -> {
 
                 DataStore db = DataStore.getDatabase(this);
                 VotingGamesDao gameDao = db.votingGamesDao();
-                VotingFoodDao foodDao = db.votingFoodDao();
-
                 Log.d("UI", "setupSubmitButton: " + selectedGames.toString());
 
                 for(Game game : selectedGames) {

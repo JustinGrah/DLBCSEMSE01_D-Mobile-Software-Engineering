@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// Entität für eine spiele Sitzung
 @Entity
 public class Session {
     @PrimaryKey(autoGenerate = true)

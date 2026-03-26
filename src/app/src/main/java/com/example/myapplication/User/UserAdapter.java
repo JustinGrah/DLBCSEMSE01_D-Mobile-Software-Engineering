@@ -12,6 +12,7 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
+//  Adapter zum erstellen eines Recycler Views
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private List<User> users = new ArrayList<>();
 
@@ -21,6 +22,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         notifyDataSetChanged();
     }
 
+    // Item layout laden
     @Override
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -28,6 +30,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return new UserViewHolder(view);
     }
 
+    // View befüllen
     @Override
     public void onBindViewHolder(UserViewHolder holder, int position) {
         User user = users.get(position);

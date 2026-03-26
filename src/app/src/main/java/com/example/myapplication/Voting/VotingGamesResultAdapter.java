@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-
+// Adapter um alle Gewählten Spiele anzeigen zu lassen
 public class VotingGamesResultAdapter extends RecyclerView.Adapter<VotingGamesResultAdapter.ViewHolder> {
     private List<VotingGamesWithGame> results = new ArrayList<>();
     private List<String> gameNames = new ArrayList<>();
